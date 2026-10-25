@@ -17,7 +17,7 @@ export const contacts = {
   Email: "mailto:jaydenruddock@utexas.edu",
 };
 
-export const work: Project[] = [
+export const selectedWork: Project[] = [
   {
     name: "Internship Grabber",
     role: "Founder & developer",
@@ -92,7 +92,7 @@ export const work: Project[] = [
   },
 ];
 
-export const archive: Project[] = [
+export const moreProjects: Project[] = [
   {
     name: "Scratch Tutor",
     paragraphs: ["A custom Scratch extension that gives an AI tutor context from a sprite's code blocks. I prompted it to guide students through their work rather than hand them an answer."],

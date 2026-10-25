@@ -2,7 +2,8 @@ import Image from "next/image";
 import { basePath } from "@/lib/site";
 import { ContactLinks } from "@/components/contact-links";
 import { SectionNav } from "@/components/section-nav";
-import { archive, contacts, experiments, work, type Project } from "@/lib/content";
+import { contacts, experiments, moreProjects, selectedWork, type Project } from "@/lib/content";
+import { sections } from "@/lib/sections";
 
 function ProjectRow({ project, compact = false }: { project: Project; compact?: boolean }) {
   return (
@@ -46,14 +47,14 @@ export default function Home() {
         </header>
 
         <main id="content" tabIndex={-1}>
-          <section id="about" aria-labelledby="about-title">
-            <h2 id="about-title">About</h2>
+          <section id={sections.about.id} aria-labelledby="about-title">
+            <h2 id="about-title">{sections.about.title}</h2>
             <div className="about-layout">
               <Image className="portrait" src={`${basePath}/images/jayden.jpg`} alt="Jayden Ruddock" width={1400} height={1867} priority sizes="(min-width: 1280px) 280px, 256px" />
               <div className="about-copy">
                 <p>Hello, I'm Jayden Ruddock, a computer science student at UT Austin in the Texas Robotics Honors program. I build web apps, developer tools, and AI projects, often starting with something I want to use myself.</p>
                 <p>Right now, I split my time between autonomous vehicle research, Internship Grabber, and a food-tracking app built around UT's dining halls.</p>
-                <a className="text-link" href="#work">See what I'm working on<Arrow /></a>
+                <a className="text-link" href={`#${sections.work.id}`}>See what I'm working on<Arrow /></a>
               </div>
             </div>
             <details className="longer-bio">
@@ -67,9 +68,9 @@ export default function Home() {
             </details>
           </section>
 
-          <section id="work" aria-labelledby="work-title">
-            <h2 id="work-title">Work</h2>
-            <div className="project-list">{work.map((project) => <ProjectRow key={project.name} project={project} />)}</div>
+          <section id={sections.work.id} aria-labelledby="work-title">
+            <h2 id="work-title">{sections.work.title}</h2>
+            <div className="project-list">{selectedWork.map((project) => <ProjectRow key={project.name} project={project} />)}</div>
             <div className="experience-note">
               <h3>Also at Jack Academy</h3>
               <p>I've worked on Jack Academy's website since 2021, including donor management and checkout workflows that supported more than $10,000 in student funding.</p>
@@ -77,18 +78,18 @@ export default function Home() {
             </div>
           </section>
 
-          <section id="archive" aria-labelledby="archive-title">
-            <h2 id="archive-title">Archive</h2>
-            <div className="project-list">{archive.map((project) => <ProjectRow key={project.name} project={project} compact />)}</div>
+          <section id={sections.moreProjects.id} aria-labelledby="archive-title">
+            <h2 id="archive-title">{sections.moreProjects.title}</h2>
+            <div className="project-list">{moreProjects.map((project) => <ProjectRow key={project.name} project={project} compact />)}</div>
             <h3 className="subsection-title">Experiments</h3>
             <div className="project-list">{experiments.map((project) => <ProjectRow key={project.name} project={project} compact />)}</div>
           </section>
 
-          <section id="whats-next" className="whats-next" aria-labelledby="next-title">
-            <h2 id="next-title">What's next</h2>
+          <section id={sections.next.id} className="whats-next" aria-labelledby="next-title">
+            <h2 id="next-title">{sections.next.title}</h2>
             <p>I'm continuing my research, building Internship Grabber, and working toward releasing GymGoersHealth on campus. I'm looking for software engineering and applied AI internships where I can contribute and keep learning.</p>
             <p>If you'd like to talk about my work or an opportunity, I'd love to hear from you.</p>
-            <a className="text-link email-link" href={contacts.Email}>jaydenruddock@utexas.edu<Arrow /></a>
+            <a className="text-link email-link" href={contacts.Email}>{contacts.Email.slice("mailto:".length)}<Arrow /></a>
             <footer><a className="text-link" href="#top">Back to top<svg aria-hidden="true" viewBox="0 0 16 16" width="14" height="14" fill="none"><path d="M8 12V4m-4 4 4-4 4 4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" /></svg></a><span>Jayden Ruddock</span></footer>
           </section>
         </main>
