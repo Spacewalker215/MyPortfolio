@@ -8,6 +8,14 @@ export type Project = {
   href?: string;
   linkLabel?: string;
   demoHref?: string;
+  logo?: string;
+  preview?: {
+    src: string;
+    alt: string;
+    caption: string;
+    width: number;
+    height: number;
+  };
 };
 
 export const contacts = {
@@ -20,6 +28,14 @@ export const contacts = {
 export const selectedWork: Project[] = [
   {
     name: "Internship Grabber",
+    logo: "/projects/internship-grabber-logo.webp",
+    preview: {
+      src: "/projects/internship-grabber-site.webp",
+      alt: "Internship Grabber homepage with an undergraduate-focused internship search and curated program listings.",
+      caption: "Internship Grabber · Public homepage",
+      width: 1265,
+      height: 712,
+    },
     role: "Founder & developer",
     href: "https://www.internshipgrabber.com/",
     linkLabel: "Visit Internship Grabber",
@@ -30,6 +46,7 @@ export const selectedWork: Project[] = [
   },
   {
     name: "GymGoersHealth",
+    logo: "/projects/gymgoershealth-logo.webp",
     role: "Personal project",
     paragraphs: [
       "My friend and I wanted to track what we ate at UT's dining halls. The food we were eating wasn't in the apps we used, so I started building one around our own routine, with food logging, workouts, fasting, and progress tracking.",
@@ -65,6 +82,7 @@ export const selectedWork: Project[] = [
   },
   {
     name: "Friendly Error Handler",
+    logo: "/projects/friendly-error-handler-logo.webp",
     role: "VS Code extension",
     href: "https://marketplace.visualstudio.com/items?itemName=JaydenRuddock.friendly-error-handler&ssr=false",
     linkLabel: "View on VS Code Marketplace",
@@ -74,6 +92,14 @@ export const selectedWork: Project[] = [
   },
   {
     name: "Texas NSBE",
+    logo: "/projects/texas-nsbe-logo.webp",
+    preview: {
+      src: "/projects/texas-nsbe-site.webp",
+      alt: "Texas NSBE homepage with the chapter group photograph, Engineering Black Excellence headline, and membership links.",
+      caption: "Texas NSBE · Public homepage",
+      width: 1280,
+      height: 800,
+    },
     role: "Telecommunications chair",
     href: "https://utnsbe.org/",
     linkLabel: "Visit Texas NSBE",

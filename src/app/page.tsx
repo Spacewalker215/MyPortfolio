@@ -5,14 +5,29 @@ import { SectionNav } from "@/components/section-nav";
 import { contacts, experiments, moreProjects, selectedWork, type Project } from "@/lib/content";
 import { sections } from "@/lib/sections";
 
-function ProjectRow({ project, compact = false }: { project: Project; compact?: boolean }) {
+function ProjectRow({ project, compact = false, eagerPreview = false }: { project: Project; compact?: boolean; eagerPreview?: boolean }) {
+  const previewHref = project.demoHref || project.href;
+  const preview = project.preview && (
+    <figure>
+      <div className="project-preview-image">
+        <Image src={`${basePath}${project.preview.src}`} alt={project.preview.alt} width={project.preview.width} height={project.preview.height} loading={eagerPreview ? "eager" : "lazy"} sizes="(max-width: 639px) calc(100vw - 48px), (max-width: 1023px) calc(100vw - 64px), 732px" />
+      </div>
+      <figcaption>{project.preview.caption}</figcaption>
+    </figure>
+  );
+
   return (
     <article className={compact ? "project project-compact" : "project"}>
-      <div className="project-heading">
-        <h3>{project.name}</h3>
-        {project.status && <span className="project-status">{project.status}</span>}
+      <div className="project-identity">
+        {project.logo && <Image className="project-logo" src={`${basePath}${project.logo}`} alt="" width={44} height={44} />}
+        <div>
+          <div className="project-heading">
+            <h3>{project.name}</h3>
+            {project.status && <span className="project-status">{project.status}</span>}
+          </div>
+          {project.role && <p className="project-role">{project.role}</p>}
+        </div>
       </div>
-      {project.role && <p className="project-role">{project.role}</p>}
       <div className="project-copy">
         {project.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
       </div>
@@ -22,6 +37,9 @@ function ProjectRow({ project, compact = false }: { project: Project; compact?: 
           {project.demoHref && <a className="text-link project-link" href={project.demoHref}>Visit the site<Arrow /></a>}
         </div>
       )}
+      {preview && (previewHref
+        ? <a className="project-preview" href={previewHref} aria-label={`Visit ${project.name}`}>{preview}</a>
+        : <div className="project-preview">{preview}</div>)}
     </article>
   );
 }
@@ -50,7 +68,7 @@ export default function Home() {
           <section id={sections.about.id} aria-labelledby="about-title">
             <h2 id="about-title">{sections.about.title}</h2>
             <div className="about-layout">
-              <Image className="portrait" src={`${basePath}/images/jayden.jpg`} alt="Jayden Ruddock" width={1400} height={1867} priority sizes="(min-width: 1280px) 280px, 256px" />
+              <Image className="portrait" src={`${basePath}/images/jayden.webp`} alt="Jayden Ruddock" width={700} height={934} priority sizes="(min-width: 1280px) 280px, 256px" />
               <div className="about-copy">
                 <p>Hello, I'm Jayden Ruddock, a computer science student at UT Austin in the Texas Robotics Honors program. I build web apps, developer tools, and AI projects, often starting with something I want to use myself.</p>
                 <p>Right now, I split my time between autonomous vehicle research, Internship Grabber, and a food-tracking app built around UT's dining halls.</p>
@@ -70,9 +88,12 @@ export default function Home() {
 
           <section id={sections.work.id} aria-labelledby="work-title">
             <h2 id="work-title">{sections.work.title}</h2>
-            <div className="project-list">{selectedWork.map((project) => <ProjectRow key={project.name} project={project} />)}</div>
+            <div className="project-list">{selectedWork.map((project, index) => <ProjectRow key={project.name} project={project} eagerPreview={index === 0} />)}</div>
             <div className="experience-note">
-              <h3>Also at Jack Academy</h3>
+              <div className="experience-heading">
+                <div className="experience-brand"><Image src={`${basePath}/projects/jack-academy-logo.webp`} alt="" width={320} height={160} sizes="(max-width: 639px) 100px, 128px" /></div>
+                <h3>Also at Jack Academy</h3>
+              </div>
               <p>I've worked on Jack Academy's website since 2021, including donor management and checkout workflows that supported more than $10,000 in student funding.</p>
               <a className="text-link project-link" href="https://jackacademy.com/">Visit Jack Academy<Arrow /></a>
             </div>
