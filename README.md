@@ -21,9 +21,7 @@ npm start
 
 The static site is built in `out/`. `npm start` previews it at http://127.0.0.1:3000.
 
-GitHub Actions deploys pushes to `main` to https://spacewalker215.github.io/MyPortfolio/. The workflow sets `NEXT_PUBLIC_BASE_PATH=/MyPortfolio` for the deployment build. Local builds use the root path by default.
-
-To preview the deployment path locally, set `NEXT_PUBLIC_BASE_PATH=/MyPortfolio` before both `npm run build` and `npm start`.
+GitHub Actions deploys pushes to `main` to https://jaydenruddock.com/. The custom domain serves the site from the root, so the deployment build leaves `NEXT_PUBLIC_BASE_PATH` unset. Local builds do the same. `public/CNAME` keeps the domain attached to each Pages deployment.
 
 ## Editing
 
@@ -46,7 +44,7 @@ Entries appear in list order. Add a project by copying an existing entry, or mov
 
 Every project needs a unique `name` and a `paragraphs` list. Optional fields are `role`, `status`, `href`, `linkLabel`, and `demoHref`. Set `linkLabel` whenever you supply `href`. Use `demoHref` for an additional live-site link, and omit links that are not available. Keep descriptions factual and give collaboration credit where appropriate.
 
-To add visuals, place files in `public/projects/` and add a `logo` path or a `preview` object to the project entry. Use paths starting with `/projects/`; the site adds its deployment prefix automatically. A preview needs `src`, descriptive `alt` text, a short `caption`, and the image's actual `width` and `height`. Screenshots link to `demoHref` when supplied, otherwise `href`; previews without a destination remain static images. Both fields are optional, so text-only entries keep their existing layout.
+To add visuals, place files in `public/projects/` and add a `logo` path or a `preview` object to the project entry. Use paths starting with `/projects/`. The site adds `NEXT_PUBLIC_BASE_PATH` only when that variable is set. Leave it unset for jaydenruddock.com. A preview needs `src`, descriptive `alt` text, a short `caption`, and the image's actual `width` and `height`. Screenshots link to `demoHref` when supplied, otherwise `href`; previews without a destination remain static images. Both fields are optional, so text-only entries keep their existing layout.
 
 Use WebP assets, preserve the original aspect ratio, and export logos at about twice their displayed dimensions. Keep screenshots at their existing desktop resolution so the interface remains legible. Supply image dimensions to reserve space while loading. The first project's preview loads eagerly; later previews load as they approach the viewport.
 
